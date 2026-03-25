@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Atividades</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --light: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 { color: var(--primary); text-align: center; }
+
+        .form-group { margin-bottom: 15px; }
+
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .btn-save { background-color: #27ae60; color: white; }
+        .btn-view { background-color: var(--accent); color: white; }
+        button:hover { opacity: 0.9; }
+
+        #listaAtividades {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th { background-color: var(--primary); color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Nova Atividade</h2>
+    <form id="atividadeForm">
+        <div class="form-group">
+            <label>Nº da Atividade:</label>
+            <input type="number" id="nrAtividade" required>
+        </div>
+        <div class="form-group">
+            <label>Descrição:</label>
+            <textarea id="descricao" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Data Início:</label>
+            <input type="date" id="dataInicio" required>
+        </div>
+        <div class="form-group">
+            <label>Data Fim:</label>
+            <input type="date" id="dataFim" required>
+        </div>
+
+        <div class="button-group">
+            <button type="submit" class="btn-save">Salvar Atividade</button>
+            <button type="button" class="btn-view" onclick="toggleVisualizacao()">Ver Atividades</button>
+        </div>
+    </form>
+</div>
+
+<div id="listaAtividades">
+    <h2>Atividades Cadastradas</h2>
+    <table id="tabelaDados">
+        <thead>
+            <tr>
+                <th>Nº</th>
+                <th>Descrição</th>
+                <th>Início</th>
+                <th>Fim</th>
+            </tr>
+        </thead>
+        <tbody id="corpoTabela"></tbody>
+    </table>
+</div>
+
+<script>
+    const form = document.getElementById('atividadeForm');
+    const listaDiv = document.getElementById('listaAtividades');
+
+    // Função para salvar no LocalStorage
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const novaAtividade = {
+            numero: document.getElementById('nrAtividade').value,
+            descricao: document.getElementById('descricao').value,
+            inicio: document.getElementById('dataInicio').value,
+            fim: document.getElementById('dataFim').value
+        };
+
+        // Busca dados existentes ou cria array vazio
+        const atividades = JSON.parse(localStorage.getItem('atividades') || '[]');
+        
+        atividades.push(novaAtividade);
+        localStorage.setItem('atividades', JSON.stringify(atividades));
+
+        alert('Atividade salva com sucesso!');
+        form.reset();
+        renderizarTabela();
+    });
+
+    // Função para alternar a exibição da lista
+    function toggleVisualizacao() {
+        if (listaDiv.style.display === 'none' || listaDiv.style.display === '') {
+            listaDiv.style.display = 'block';
+            renderizarTabela();
+        } else {
+            listaDiv.style.display = 'none';
+        }
+    }
+
+    // Função para construir a tabela com os dados do "banco"
+    function renderizarTabela() {
+        const atividades = JSON.parse(localStorage.getItem('atividades') || '[]');
+        const corpoTabela = document.getElementById('corpoTabela');
+        
+        corpoTabela.innerHTML = '';
+
+        atividades.forEach(atv => {
+            const row = `<tr>
+                <td>${atv.numero}</td>
+                <td>${atv.descricao}</td>
+                <td>${atv.inicio}</td>
+                <td>${atv.fim}</td>
+            </tr>`;
+            corpoTabela.innerHTML += row;
+        });
+    }
+</script>
+
+
+
+
+</body>
+</html>
