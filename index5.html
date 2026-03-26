@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tela de Pedidos</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .lista {
+            margin-top: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pedido {
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 5px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cadastro de Pedidos</h1>
+
+    <form id="formPedido">
+        <input type="number" id="numero" placeholder="Número do Pedido">
+        <input type="text" id="produto" placeholder="Produto">
+        <input type="text" id="nome" placeholder="Nome da Pessoa">
+        <input type="text" id="endereco" placeholder="Endereço">
+        <input type="date" id="data">
+        <button type="submit">Cadastrar Pedido</button>
+    </form>
+
+    <div class="lista" id="listaPedidos"></div>
+
+    <script>
+        // Carrega pedidos do localStorage
+        let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+
+        const form = document.getElementById("formPedido");
+        const lista = document.getElementById("listaPedidos");
+
+        function salvarLocalStorage() {
+            localStorage.setItem("pedidos", JSON.stringify(pedidos));
+        }
+
+        function validarCampos(numero, produto, nome, endereco, data) {
+            if (!numero || numero <= 0) {
+                alert("Número do pedido inválido!");
+                return false;
+            }
+
+            if (produto.trim() === "") {
+                alert("Produto é obrigatório!");
+                return false;
+            }
+
+            if (nome.trim() === "") {
+                alert("Nome é obrigatório!");
+                return false;
+            }
+
+            if (endereco.trim() === "") {
+                alert("Endereço é obrigatório!");
+                return false;
+            }
+
+            if (!data) {
+                alert("Data de entrega é obrigatória!");
+                return false;
+            }
+
+            return true;
+        }
+
+        function renderizarPedidos() {
+            lista.innerHTML = "";
+
+            pedidos.forEach(p => {
+                const div = document.createElement("div");
+                div.classList.add("pedido");
+
+                div.innerHTML = `
+                    <strong>Pedido #${p.numero}</strong><br>
+                    Produto: ${p.produto}<br>
+                    Cliente: ${p.nome}<br>
+                    Endereço: ${p.endereco}<br>
+                    Entrega: ${p.data}
+                `;
+
+                lista.appendChild(div);
+            });
+        }
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const numero = document.getElementById("numero").value;
+            const produto = document.getElementById("produto").value;
+            const nome = document.getElementById("nome").value;
+            const endereco = document.getElementById("endereco").value;
+            const data = document.getElementById("data").value;
+
+            if (!validarCampos(numero, produto, nome, endereco, data)) {
+                return;
+            }
+
+            const novoPedido = {
+                numero,
+                produto,
+                nome,
+                endereco,
+                data
+            };
+
+            pedidos.push(novoPedido);
+            salvarLocalStorage();
+            renderizarPedidos();
+
+            form.reset();
+            alert("Pedido cadastrado com sucesso!");
+        });
+
+        renderizarPedidos();
+    </script>
+
+</body>
+</html>
