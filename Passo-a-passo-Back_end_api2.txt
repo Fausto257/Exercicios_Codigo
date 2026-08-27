@@ -94,5 +94,5 @@ Vscode - index.html
 
 Alterar o código verificando, quando a cidade for Rio de Janeiro então o campo status deverá ter o valor "Especial RJ"
 
-Alterar o código verificando, quando a cidade for Belo Horizonte então o campo status deverá ter o valor "MG"
+Alterar o código verificando, quando a cidade for Belo Horizonte então o campo status deverá ter o valor "Especial MG"
 
