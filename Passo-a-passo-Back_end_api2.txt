@@ -90,9 +90,42 @@ Vscode - index.html
     <div id="clima"></div>
 
 
-==================================
+=====================================================================================================================================
 
 Alterar o código verificando, quando a cidade for Rio de Janeiro então o campo status deverá ter o valor "Especial RJ"
 
 Alterar o código verificando, quando a cidade for Belo Horizonte então o campo status deverá ter o valor "Especial MG"
+
+================================= 01/09/2026 ====================================================================================
+
+1. No Xampp - "Aba - SQL"
+===========
+
+Criar a tabela de Estados
+-------------------------
+CREATE TABLE estados (
+    codigo_cidade INT PRIMARY KEY,
+    sigla_estado VARCHAR(2) NOT NULL
+);
+
+2. Inserir Siglas e códigos:
+===========
+
+INSERT INTO estados (codigo_cidade, sigla_estado) VALUES (1001, 'SP');
+
+3. Alterar a tabela de Pessoas
+===========
+ALTER TABLE pessoas
+ADD COLUMN codigo_cidade INT;
+
+4. Criar Relacionamento
+===========
+ALTER TABLE pessoas
+ADD CONSTRAINT fk_pessoas_estados
+FOREIGN KEY (codigo_cidade)
+REFERENCES estados(codigo_cidade);
+
+OBS: "O código informado em pessoas.codigo_cidade precisa existir em estados.codigo_cidade."
+
+
 
