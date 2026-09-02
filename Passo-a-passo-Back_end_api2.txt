@@ -130,7 +130,7 @@ OBS: "O código informado em pessoas.codigo_cidade precisa existir em estados.co
 
 =========================
 
-select pessoas.nome, pessoas.cidade, pessoas.codigo_cidade from pessoas, estados.sigla_estado
+select pessoas.nome, pessoas.cidade, pessoas.codigo_cidade, estados.sigla_estado from pessoas
 INNER JOIN estados ON pessoas.codigo_cidade = estados.codigo_cidade
 where nome like 'Isa%'
 
