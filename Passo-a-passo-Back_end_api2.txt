@@ -134,6 +134,20 @@ select pessoas.nome, pessoas.cidade, pessoas.codigo_cidade from pessoas, estados
 INNER JOIN estados ON pessoas.codigo_cidade = estados.codigo_cidade
 where nome like 'Isa%'
 
+=========================== 
+Comandos SQL
+===========================
+
+select cidade,nome,codigo_cidade from pessoas where nome like 'Ald%'
+
+/*UPDATE `pessoas` SET `codigo_cidade`=1001 where cidade = "São Paulo";*/
+
+/*select pessoas.nome, pessoas.cidade, estados.sigla_estado from pessoas
+INNER JOIN estados ON pessoas.codigo_cidade = estados.codigo_cidade
+where nome like 'Ald%'*/
+
+/*INSERT INTO `pessoas`(`nome`, `idade`, `telefone`, `cidade`, `codigo_cidade`) VALUES ('Aldo 21',19,'93999393','São Paulo',1001);*/
+
 
 
 
