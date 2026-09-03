@@ -148,8 +148,24 @@ where nome like 'Ald%'*/
 
 /*INSERT INTO `pessoas`(`nome`, `idade`, `telefone`, `cidade`, `codigo_cidade`) VALUES ('Aldo 21',19,'93999393','São Paulo',1001);*/
 
+===================================== 03/09/02026 =============================
 
 
+    let sql =`SELECT
+            pessoas.id,
+            pessoas.nome,
+            pessoas.idade,
+            pessoas.telefone,
+            pessoas.cidade,
+            pessoas.codigo_cidade,
+            estados.sigla_estado,
+            pessoas.status
 
+        FROM pessoas
+
+        INNER JOIN estados
+            ON pessoas.codigo_cidade =
+               estados.codigo_cidade
+    `;
 
 
