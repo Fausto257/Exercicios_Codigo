@@ -203,7 +203,42 @@ Abrir o código: Index.html
 - entrar no código script.js
 - Alterar a função do --> async function consultarClima() para receber os parâmetros de latitude e longitude.
 
+------ Alterar o que segue:
 
+
+async function consultarClima(latitude, longitude) {
+
+    const url =
+        "https://api.open-meteo.com/v1/forecast" +
+        `?latitude=${latitude}` +
+        `&longitude=${longitude}` +
+        "&current=temperature_2m,relative_humidity_2m,wind_speed_10m";
+
+    try {
+
+==========================================================================================
+
+
+2a. Parte
+=========
+
+Alterar o index.html
+====================
+
+<div class="botoes">
+    <button>Consultar clima de São Paulo</button>
+    <button>Consultar clima de Curitiba</button>
+    <button>Consultar clima do Rio de Janeiro</button>
+</div>
+
+
+Alterar o style.css
+===================
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
 
 
 
