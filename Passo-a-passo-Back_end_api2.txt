@@ -168,4 +168,45 @@ where nome like 'Ald%'*/
                estados.codigo_cidade
     `;
 
+===================================== 23/09/02026 =============================
+
+Objetivo: Criar 3 botões para o aplicativo de clima para as cidades de:
+- Curitiba
+- Belo Horizonte
+- Rio de Janeiro
+
+Passo:
+------
+
+- No projeto de CadastroPessoas
+
+1. No VsCode
+============
+
+Abrir o código: Index.html
+ --> copiar o código do clima para cada nova cidade, ou seja, 3 vezes
+
+2. Na internet
+==============
+  --> procurar a latitude e longitude de cada uma das cidades
+    - Curitiba
+    - Belo Horizonte
+    - Rio de Janeiro
+
+3. Na função consultarClima() 
+=============================
+--> acrescentar os parâmetros de latitude e longitude por exemplo (-5.4, -5.4)
+--> para cada chamada da função deve-se por as coordenadas de cada cidade
+
+4. No VSCode
+============
+- entrar no código script.js
+- Alterar a função do --> async function consultarClima() para receber os parâmetros de latitude e longitude.
+
+
+
+
+
+
+
 
